@@ -1,4 +1,7 @@
-<?php   
+<?php
+//Session data
+session_start();
+$table = $_SESSION['dbname'];   
 // Connect to the Database
 $insert = false; 
 $servername = "localhost";
@@ -19,7 +22,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
     $description = $_POST["description"];
 
     // Sql query to be executed
-    $sql = "INSERT INTO `testdb` (`title`, `description`) VALUES ('$title', '$description')";
+    $sql = "INSERT INTO `$table` (`title`, `description`) VALUES ('$title', '$description')";
     $result = mysqli_query($conn, $sql);
     if($result){
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">

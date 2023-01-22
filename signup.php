@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(($password==$cpassword)&& $exist==false){
         $hash = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO `users` (`name`, `email`, `password`, `dbname`) VALUES ( '$name', '$email' , '$hash' ,'$dbname' )";
-        $sql1 = "CREATE TABLE `contacts`.`$dbname` (`sno` INT NOT NULL AUTO_INCREMENT , `title` VARCHAR(10) NOT NULL , `description` TEXT NOT NULL , `dt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`sno`)) ENGINE = InnoDB";
+        $sql1 = "CREATE TABLE `contacts`.`$dbname` (`sno` INT NOT NULL AUTO_INCREMENT , `title` VARCHAR(100) NOT NULL , `description` TEXT NOT NULL , `dt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`sno`)) ENGINE = InnoDB";
         $result = mysqli_query($conn,$sql);
         $result1 = mysqli_query($conn, $sql1);
         if($result && $result1)
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="container mt-5" style="align-items: center; display: flex; flex-direction: column;">
         <form action="/newp/signup.php" method="post">
     <div class="mb-3">
-        <label for="name">Name</label>
+        <label for="name">Userame</label>
         <div class="class_mb-4 input-group">
             <span class="input-group-text">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </svg>
             </span>
             <div class="col-auto">
-            <input type="text" name="name" autocomplete="off" class="form-control" id="name" required aria-describedby="emailHelp" placeholder="Name">
+            <input type="text" name="name" autocomplete="off" class="form-control" id="name" required aria-describedby="emailHelp" placeholder="Username">
             </div>
         </div>
         
@@ -118,7 +118,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="password" name ="password" class="form-control" id="password" required>
         </div>
     </div>
-    <div id="passwordHelpBlock" class="form-text mb-3">Your password must be 8-20 characters</div>
     <div class="my-2">
     <label for="cpassword" class="form-label">Confirm Password</label>
     <div class="input-group">
@@ -132,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div> 
     </div>
+    <div id="passwordHelpBlock" class="form-text mb-3">Your password must be 8-20 characters</div>
     <div class="my-4 text-center">
         <button type="submit" class="btn btn-outline-success" style="border-radius: 25px;">Sign Up</button>
     </div> 

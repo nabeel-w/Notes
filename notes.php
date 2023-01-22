@@ -1,4 +1,7 @@
-<?php   
+<?php
+//Session data
+session_start();
+$table = $_SESSION['dbname'];     
 // Connect to the Database
 $update = false;
 $delete = false;
@@ -16,7 +19,7 @@ if (!$conn){
 if(isset($_GET['delete'])){
     $sno = $_GET['delete'];
     $delete = true;
-    $sql = "DELETE FROM `testdb` WHERE `sno` = $sno";
+    $sql = "DELETE FROM `$table` WHERE `sno` = $sno";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         $delete = true;
@@ -30,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $description = $_POST["descriptionEdit"];
 
         // Sql query to be executed
-        $sql = "UPDATE `testdb` SET `title` = '$title' , `description` = '$description' WHERE `testdb`.`sno` = $sno";
+        $sql = "UPDATE `$table` SET `title` = '$title' , `description` = '$description' WHERE `$table`.`sno` = $sno";
         $result = mysqli_query($conn, $sql);
         if ($result) {
             $update = true;
@@ -102,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php
     if($update){
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Success!</strong>Your note was editted sucessfully!
+        <strong>Success!</strong> Your note was editted sucessfully!
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>';
   }
@@ -132,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   </thead>
   <tbody>
     <?php 
-      $sql = "SELECT * FROM `testdb`";
+      $sql = "SELECT * FROM `$table`";
       $result = mysqli_query($conn, $sql);
       $sno = 0;
       while($row = mysqli_fetch_assoc($result)){
