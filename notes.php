@@ -1,6 +1,9 @@
 <?php
 //Session data
 session_start();
+if(!isset($_SESSION['loggin'])){
+  header("location: login.php");
+}
 $table = $_SESSION['dbname'];     
 // Connect to the Database
 $update = false;
