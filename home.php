@@ -1,4 +1,10 @@
-<?php   
+<?php
+//Session data
+session_start();
+if(!isset($_SESSION['loggin'])){
+  header("location: login.php");
+}
+$table = $_SESSION['dbname'];   
 // Connect to the Database
 $insert = false; 
 $servername = "localhost";
@@ -19,7 +25,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
     $description = $_POST["description"];
 
     // Sql query to be executed
-    $sql = "INSERT INTO `testdb` (`title`, `description`) VALUES ('$title', '$description')";
+    $sql = "INSERT INTO `$table` (`title`, `description`) VALUES ('$title', '$description')";
     $result = mysqli_query($conn, $sql);
     if($result){
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -43,7 +49,7 @@ if($_SERVER['REQUEST_METHOD']=='POST') {
   </head>
   <body>
     <div class="mt-3">
-  <h3 class="text-center display-6" ><small class="text-muted">Welcome To Notes</small></h3>
+  <h3 class="text-center display-6" ><small class="text-muted">Welcome To Notes- <?php echo $_SESSION['username'];?></small></h3>
   </div>
   <div class="container mt-1">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
