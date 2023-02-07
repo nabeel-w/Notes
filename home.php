@@ -4,6 +4,12 @@ session_start();
 if(!isset($_SESSION['loggin'])){
   header("location: login.php");
 }
+if($_SESSION['succ']){
+  echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Success!</strong> Your Account has been created successfully!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>';
+}
 $table = $_SESSION['dbname'];   
 // Connect to the Database
 $insert = false; 
@@ -13,16 +19,14 @@ $password = "";
 $database = "contacts";
 // Create a connection
 $conn = mysqli_connect($servername, $username, $password, $database);
-// Create a connection
-$conn = mysqli_connect($servername, $username, $password, $database);
 
 // Die if connection was not successful
 if (!$conn){
     die("Sorry we failed to connect: ". mysqli_connect_error());
 }
 if($_SERVER['REQUEST_METHOD']=='POST') {
-    $title = $_POST["title"];
-    $description = $_POST["description"];
+    $title = mysqli_real_escape_string($conn,$_POST["title"]);
+    $description = mysqli_real_escape_string($conn,$_POST["description"]);
 
     // Sql query to be executed
     $sql = "INSERT INTO `$table` (`title`, `description`) VALUES ('$title', '$description')";

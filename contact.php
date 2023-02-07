@@ -50,9 +50,9 @@
 </form>
 <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $desc = $_POST['desc'];
+        $name = mysqli_real_escape_string($conn,$_POST['name']);
+        $email = mysqli_real_escape_string($conn,$_POST['email']);
+        $desc = mysqli_real_escape_string($conn,$_POST['desc']);
         
       
       // Connecting to the Database

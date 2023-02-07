@@ -27,6 +27,7 @@
                         $_SESSION['loggin'] = true;
                         $_SESSION['username'] = $row["name"];
                         $_SESSION['dbname'] = $row['dbname'];
+                        $_SESSION['succ'] = false;
                         header("location: home.php");
                 }
                 else{

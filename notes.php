@@ -32,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['snoEdit'])) {
         // Update the record
         $sno = $_POST["snoEdit"];
-        $title = $_POST["titleEdit"];
-        $description = $_POST["descriptionEdit"];
+        $title = mysqli_real_escape_string($conn,$_POST["titleEdit"]);
+        $description = mysqli_real_escape_string($conn,$_POST["descriptionEdit"]);
 
         // Sql query to be executed
         $sql = "UPDATE `$table` SET `title` = '$title' , `description` = '$description' WHERE `$table`.`sno` = $sno";

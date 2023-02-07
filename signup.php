@@ -15,12 +15,12 @@ if (!$conn){
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = $_POST["name"];
-    $email = $_POST["email"];
+    $name = mysqli_real_escape_string($conn,$_POST["name"]);
+    $email = mysqli_real_escape_string($conn,$_POST["email"]);
     $password = $_POST["password"];
     $cpassword = $_POST["cpassword"];
     $dbname = $name . "db";
-    $sql4 = "SELECT * FROM `users` WHERE email = '$email'";
+    $sql4 = "SELECT * FROM `users` WHERE email = '$email' OR name = '$name'";
     $result4 = mysqli_query($conn, $sql4);
     $num = mysqli_num_rows($result4);
     if($num>0){
@@ -57,10 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <body>
     <?php
         if($succ){
-            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-          <strong>Success!</strong> Your Account has been created successfully!
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>';
+        session_start();
+        $_SESSION['loggin'] = true;
+        $_SESSION['username'] = $name;
+        $_SESSION['dbname'] = $dbname;
+        $_SESSION['succ'] = true;
+        header("location: home.php");
         }
         if($error){
             echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -70,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         if($exist){
             echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Error!</strong> Email already in use! Try logging in.
+          <strong>Error!</strong> Try using different email or username.
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>';
         }
@@ -91,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="text" name="name" autocomplete="off" class="form-control" id="name" required aria-describedby="emailHelp" placeholder="Username">
             </div>
         </div>
+        <div id="nameHelp" class="form-text mx-2">Don't use special characters.</div>
         
     </div>
   <div class="mb-3">
