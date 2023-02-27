@@ -13,6 +13,7 @@ The Notes.io is built using the following technologies:
 - __JavaScript:__ The website's functionality is implemented using JavaScript.
 - __PHP:__ The website's backend is built using PHP.
 - __MySQL:__ The website's data is stored in a MySQL database.
+- __JQuery:__ The website's functionality is enhanced using JQuery
 ## Installation
 To install the Notes Website, follow these steps:
 1. Install XAMPP on your machine.
